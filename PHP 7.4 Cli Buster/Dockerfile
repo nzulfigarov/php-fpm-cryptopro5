@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-buster
+FROM php:7.4-cli-buster
 
 
 RUN apt-get update \
@@ -20,7 +20,7 @@ RUN apt-get update -yqq \
         libzip-dev \
         zip \
         unzip \
-    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-configure zip \
     && docker-php-ext-install zip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -35,8 +35,8 @@ RUN usermod -u 1000 www-data
 RUN mkdir -p /home/cryptopro/downloads
 
 
-COPY ./linux-amd64_deb.tgz /home/cryptopro/downloads/linux-amd64_deb.tgz
-COPY ./php.ini /usr/local/etc/php/php.ini
+COPY linux-amd64_deb.tgz /home/cryptopro/downloads/linux-amd64_deb.tgz
+COPY php.ini /usr/local/etc/php/php.ini
 
 RUN mkdir -p /home/cryptopro/installer
 
